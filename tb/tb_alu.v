@@ -19,10 +19,19 @@ module tb_alu;
         // OR
         ctrl = 4'b0011;
         a = 32'hF0F0F0F0; b = 32'h0F0F0F0F; #10;
-        $display("OR = %h (exp FFFFFFFF)", result);
+        // XOR
+        ctrl = 4'b0100;
+        a = 32'hAAAAAAAA; b = 32'h55555555; #10;
+        // SLL
+        ctrl = 4'b0101;
+        // SRL
+        ctrl = 4'b0110;
+        a = 32'h80000000; b = 32'd1; #10;
+        // SRA
+        ctrl = 4'b0111;
+        a = 32'h80000000; b = 32'd1; #10;
+        $display("SRA = %h (exp C0000000)", result);
         $finish;
     end
 endmodule
-
-
 
