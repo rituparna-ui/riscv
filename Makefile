@@ -1,6 +1,6 @@
-MOD ?= half_adder
-RTL = $(wildcard rtl/*.v)
-TB = tb/tb_$(MOD).v
+MOD ?= adder32
+RTL = $(wildcard rtl/*.v rtl/*/*.v)
+TB = $(firstword $(wildcard tb/tb_$(MOD).v tb/*/*/tb_$(MOD).v tb/*/tb_$(MOD).v))
 
 .PHONY: run lint clean
 run:
@@ -8,7 +8,7 @@ run:
 	./obj_dir/sim_$(MOD)
 
 lint:
-	verilator --lint-only -Wall rtl/$(MOD).v
+	verilator --lint-only -Wall $(firstword $(wildcard rtl/$(MOD).v rtl/*/*.v))
 
 clean:
 	rm -rf obj_dir sim_* *.vcd
