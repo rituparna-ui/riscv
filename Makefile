@@ -4,7 +4,7 @@ TB  = tb/tb_$(MOD).v
 
 .PHONY: run lint clean
 run:
-	verilator --binary -Wall $(RTL) $(TB) -o sim_$(MOD) 2>&1 | tail -3
+	verilator --binary -Wall --top-module tb_$(MOD) $(RTL) $(TB) -o sim_$(MOD )
 	./obj_dir/sim_$(MOD)
 
 lint:
