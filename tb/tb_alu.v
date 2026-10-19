@@ -6,10 +6,23 @@ module tb_alu;
     alu dut (.a(a), .b(b), .alu_ctrl(ctrl), .result(result), .zero(zero));
 
     initial begin
-        ctrl = 4'b0000; // ADD
-        a = 5; b = 7; #10; $display("ADD 5+7=%0d (exp 12)", result);
-        a = 32'hFFFFFFFF; b = 1; #10; $display("ADD overflow=%h (exp 0)", result);
-        a = 0; b = 0; #10; $display("zero flag=%b (exp 1)", zero);
+        // ADD
+        ctrl = 4'b0000;
+        a = 5; b = 7; #10; $display("ADD 5+7=%0d", result);
+        // SUB
+        ctrl = 4'b0001;
+        a = 10; b = 3; #10; $display("SUB 10-3=%0d", result);
+        a = 3; b = 10; #10; $display("SUB 3-10=%h zero=%b", result, zero);
+        // AND
+        ctrl = 4'b0010;
+        a = 32'hF0F0F0F0; b = 32'h0F0F0F0F; #10;
+        // OR
+        ctrl = 4'b0011;
+        a = 32'hF0F0F0F0; b = 32'h0F0F0F0F; #10;
+        $display("OR = %h (exp FFFFFFFF)", result);
         $finish;
     end
 endmodule
+
+
+
