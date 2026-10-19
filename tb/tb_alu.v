@@ -30,7 +30,13 @@ module tb_alu;
         // SRA
         ctrl = 4'b0111;
         a = 32'h80000000; b = 32'd1; #10;
-        $display("SRA = %h (exp C0000000)", result);
+        // SLT (signed)
+        ctrl = 4'b1000;
+        a = 32'hFFFFFFFF; b = 32'd1; #10; // -1 < 1
+        // SLTU (unsigned)
+        ctrl = 4'b1001;
+        a = 32'hFFFFFFFF; b = 32'd1; #10; // large unsigned not < 1
+        $display("SLTU FFFFFFFF<1 = %0d (exp 0)", result);
         $finish;
     end
 endmodule
